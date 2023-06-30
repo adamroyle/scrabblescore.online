@@ -3,11 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "amplitude": "^4.0.0",
-    "amplitude-js": "^5.2.2",
-    "jest-enzyme": "^7.1.0",
-    "nightmare": "^3.0.2",
-    "nosleep.js": "https://github.com/ViRPo/NoSleep.js#f7a6122f5d6700f18a68bff2c4114b81fdf6fa55",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-beforeunload": "^2.1.0",
@@ -31,12 +26,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
-    "eslint": "^6.2.2",
-    "eslint-plugin-react": "^7.14.3",
-    "react-snap": "^1.23.0"
-  }
+  ]
 }

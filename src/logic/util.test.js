@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { resizeArray, scrabbleScore, isLetterAllowed, indexesOf, toggleModifiers } from './Util';
+import { resizeArray, scrabbleScore, isLetterAllowed, indexesOf, toggleModifiers } from './util';
 
 describe('scrabbleScore', () => {
   test('counts score without modifiers', () => {

@@ -1,4 +1,3 @@
-import amplitude from 'amplitude-js';
 import { scoreListsMap } from './scoreLists';
 
 let startTime;
@@ -80,7 +79,6 @@ export function scrabbleScore(word, modifiers, language) {
 }
 
 export function logEventInit() {
-  amplitude.getInstance().init('908142045794995ec39e6025a04bfdb4');
 }
 
 export function isStaticBuild() {
@@ -134,15 +132,7 @@ export function loggableGame(game) {
   return { turns, scores, numTurns , durationMins};
 }
 
-export function logEvent(eventName, eventData) {
-  if (isStaticBuild() || !isProduction())
-    return;
-
-  try {
-    amplitude.getInstance().logEvent(eventName, eventData)
-  } catch(error) {
-    console.log(`Something went wrong when logging an event. ${error}.`)
-  }
+export function logEvent(eventName, eventData) {  
 }
 
 export function scrollToTop() {

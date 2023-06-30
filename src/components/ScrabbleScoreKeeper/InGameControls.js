@@ -1,13 +1,8 @@
 import React from 'react';
-import { scrabbleScore, logEvent, scrollToTop, isTest, isCordova, loggableWord, loggableGame } from '../../logic/util';
+import { scrabbleScore, logEvent, scrollToTop, loggableWord, loggableGame } from '../../logic/util';
 import ScrabbleInputBox from '../ScrabbleInputBox/ScrabbleInputBox';
-import NoSleep from 'nosleep.js';
 
 const emptyWord = { value: '', modifiers: [], score: 0 };
-let noSleep;
-if (!isTest() && !isCordova()) {
-  noSleep = new NoSleep();
-}
 
 class InGameControls extends React.Component {
 
@@ -17,19 +12,6 @@ class InGameControls extends React.Component {
   state = {
     currentWord: emptyWord,
   };
-
-  handleContainerClick(e) {
-    if (e.target.nodeName === 'BUTTON' && typeof noSleep !== "undefined") {
-      /*
-       * NoSleep requires to be called from an event handler
-       * So ideally we would want to put it into the Start Game event handler
-       * But if we put noSleep into the Start game event, noSleep won't be called when the user resumes game
-       * Thus, we execute when user interacts with buttons
-       */
-
-      noSleep.enable();
-    }
-  }
 
   _scrollToTop = () => {
     const { isMobile } = this.props;
@@ -155,7 +137,7 @@ class InGameControls extends React.Component {
     };
 
     return (
-      <form ref={this.form} className={isFirstTurn ? 'first-turn' : null} onSubmit={(e) => e.preventDefault()} onClick={this.handleContainerClick}>
+      <form ref={this.form} className={isFirstTurn ? 'first-turn' : null} onSubmit={(e) => e.preventDefault()}>
         <ScrabbleInputBox {...props} />
         <div className={`instruction-message ${isInstructionShown ? "" : "hide"}`}> 
           ↑ Press on a letter
