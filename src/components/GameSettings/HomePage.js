@@ -8,7 +8,7 @@ const HomePage = (props) => {
           <img id="big-logo" src="logo.png" alt="Scrabble score logo" />
         </div>
       </div>
-      <div className="homepage-children">{props.children}</div>
+      <div className="mb-5">{props.children}</div>
     </div>
   );
 };

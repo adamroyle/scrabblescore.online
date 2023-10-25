@@ -1,11 +1,10 @@
-
-import ReactGA from 'react-ga';
-import React from 'react';
-import GameSettings from '../GameSettings/GameSettings';
-import ShouldResume from '../GameSettings/ShouldResume';
-import ScoreKeeper from './ScoreKeeper';
-import './App.css';
-import { logEvent, getPersistedState, clearPersistedState } from '../../logic/util';
+import ReactGA from "react-ga";
+import React from "react";
+import GameSettings from "../GameSettings/GameSettings";
+import ShouldResume from "../GameSettings/ShouldResume";
+import ScoreKeeper from "./ScoreKeeper";
+import "./App.css";
+import { logEvent, getPersistedState, clearPersistedState } from "../../logic/util";
 
 class App extends React.Component {
   constructor(props) {
@@ -21,13 +20,13 @@ class App extends React.Component {
     this.state = {
       resumeState: null,
       playerNames: [],
-      language: 'en',
+      language: "en",
       width: 10,
     };
   }
 
   componentDidMount() {
-    /* 
+    /*
      * pushState() allows to modifiy browser history entries;
      * popstate listens for changes in browser history,like back/front button click;
      * when history is changed, this.handlePopState function is being fired;
@@ -36,10 +35,10 @@ class App extends React.Component {
      */
 
     const { playerNames } = this.state;
-    window.history.pushState({ playerNames: playerNames }, null) 
-    window.addEventListener('popstate', this.handlePopState); 
+    window.history.pushState({ playerNames: playerNames }, null);
+    window.addEventListener("popstate", this.handlePopState);
 
-    ReactGA.initialize('UA-144533310-1');
+    ReactGA.initialize("UA-144533310-1");
     ReactGA.pageview(window.location.pathname + window.location.search);
     this.handleWindowSizeChange();
 
@@ -48,17 +47,17 @@ class App extends React.Component {
   }
 
   UNSAFE_componentWillMount() {
-    window.addEventListener('resize', this.handleWindowSizeChange);
+    window.addEventListener("resize", this.handleWindowSizeChange);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowSizeChange);
-    window.removeEventListener('popstate', this.handlePopState);
+    window.removeEventListener("resize", this.handleWindowSizeChange);
+    window.removeEventListener("popstate", this.handlePopState);
   }
 
   handlePopState(event) {
-   const stateObj = event.state;
-   this.setState({playerNames: stateObj.playerNames})
+    const stateObj = event.state;
+    this.setState({ playerNames: stateObj.playerNames });
   }
 
   handleWindowSizeChange() {
@@ -66,53 +65,43 @@ class App extends React.Component {
   }
 
   handleGameStart(playerNames, language) {
-    logEvent('start-game', {'player-names': playerNames, 'language': language, 'num-players': playerNames.length});
-    window.history.pushState({ playerNames: playerNames }, null)
+    logEvent("start-game", { "player-names": playerNames, language: language, "num-players": playerNames.length });
+    window.history.pushState({ playerNames: playerNames }, null);
     this.setState({ playerNames, language });
   }
 
   handleResetGame({ reset }) {
-    if (reset)
-      clearPersistedState("gameState");
+    if (reset) clearPersistedState("gameState");
 
     const resumeState = getPersistedState("gameState");
     this.setState({ resumeState });
-    this.setState({playerNames: []});
+    this.setState({ playerNames: [] });
   }
 
   renderGame(isMobile) {
     const { resumeState, playerNames, language } = this.state;
 
     if (resumeState) {
-      const handleResume = resume => {
-        if (resume)
-          this.setState({playerNames: resumeState.playerNames});
-        else
-          clearPersistedState("gameState");
-        this.setState({resumeState: null});
-        logEvent('game-resume', {resume});
+      const handleResume = (resume) => {
+        if (resume) this.setState({ playerNames: resumeState.playerNames });
+        else clearPersistedState("gameState");
+        this.setState({ resumeState: null });
+        logEvent("game-resume", { resume });
       };
-      return <ShouldResume onResume={handleResume} />
+      return <ShouldResume onResume={handleResume} />;
     }
 
-    return playerNames.length === 0
-      ? <GameSettings onGameStart={this.handleGameStart} />
-      : <ScoreKeeper
-          onNewGame={this.handleResetGame}
-          playerNames={playerNames}
-          language={language}
-          isMobile={isMobile}
-        />;
+    return playerNames.length === 0 ? (
+      <GameSettings onGameStart={this.handleGameStart} />
+    ) : (
+      <ScoreKeeper onNewGame={this.handleResetGame} playerNames={playerNames} language={language} isMobile={isMobile} />
+    );
   }
 
   render() {
     const { width } = this.state;
     const isMobile = width <= 815;
-    return (
-      <div className={`main ${isMobile ? 'mobile' : 'desktop'}`}>
-        {this.renderGame(isMobile)}
-      </div>
-    );
+    return <div className={`main mb-5 ${isMobile ? "mobile" : "desktop"}`}>{this.renderGame(isMobile)}</div>;
   }
 }
 
