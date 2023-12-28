@@ -1,9 +1,9 @@
 /*General table css*/
 
-.table-bordered {                     
+.table-bordered {
   table-layout: fixed;
-  background-color: rgb(98,37,40, 0.4);
-  text-shadow: 1px 1px rgba(0,0,0,0.8);
+  background-color: rgb(98, 37, 40, 0.4);
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 .table thead th {
@@ -12,18 +12,18 @@
 }
 
 .move-header {
-	width: 65px;
+  width: 65px;
 }
 
 .table th {
-	height: 57px;
-	vertical-align: middle;
+  height: 57px;
+  vertical-align: middle;
   text-align: center;
   padding: 0px;
 }
 
 .table td {
-	vertical-align: middle;
+  vertical-align: middle;
   padding: 0.4rem;
 }
 
@@ -46,7 +46,7 @@
   text-align: left;
 }
 
-.score-grid-cell .word-cell  .reaper {
+.score-grid-cell .word-cell .reaper {
   width: 100%;
   text-align: center;
   display: inline-block;
@@ -64,12 +64,13 @@
 .score-box {
   display: inline-block;
   border: 1px solid white;
-  background-color: rgb(98,37,40, 0.3);
+  background-color: rgb(98, 37, 40, 0.3);
   height: 30px;
   width: 30px;
   border-radius: 5px;
   padding-top: 2px;
   text-align: center;
+  color: inherit;
 }
 
 .bingo-cell {
@@ -92,7 +93,7 @@
 
 .mobile .playerNames {
   width: 61px;
-  
+
   text-align: center;
   padding: 0px;
 }
@@ -103,7 +104,7 @@
 
 .mobile .move-row {
   font-weight: bold;
-  background-color: rgb(98,37,40, 0.3);
+  background-color: rgb(98, 37, 40, 0.3);
   text-align: center;
 }
 
@@ -112,6 +113,6 @@
   min-height: 30px;
 }
 
-.mobile .score-grid-cell .word-cell  .reaper {
+.mobile .score-grid-cell .word-cell .reaper {
   padding-left: 30px;
 }

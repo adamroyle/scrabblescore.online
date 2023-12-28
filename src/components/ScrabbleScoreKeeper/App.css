@@ -1,12 +1,13 @@
-#small-logo, #small-logo img {
+#small-logo,
+#small-logo img {
   display: block;
-  cursor: pointer;  
+  cursor: pointer;
   width: 175px;
- }
- 
- #small-logo {
-   margin: 20px 0 40px 0;
- }
+}
+
+#small-logo {
+  margin: 20px 0 40px 0;
+}
 
 .mobile #small-logo {
   margin: 15px auto;
@@ -16,7 +17,8 @@ h3 {
   margin-top: 25px;
 }
 
-.mobile .title {    /* score grid title is removed for mobbile, it takes too much space otherwise */
+.mobile .title {
+  /* score grid title is removed for mobbile, it takes too much space otherwise */
   display: none;
 }
 
@@ -34,7 +36,8 @@ h3 {
 
 /*DESKTOP buttons design*/
 
-.buttons {                  /*First wrap container for button in InGame(Over)Control components*/
+.buttons {
+  /*First wrap container for button in InGame(Over)Control components*/
   margin: 0.5em auto;
   width: 380px;
 }
@@ -58,15 +61,15 @@ h3 {
   border: solid 1px #980c10;
   color: white;
   font-size: 18px;
-  line-height: 2.0rem; /* This aligns the bingo fake button text */
+  line-height: 2rem; /* This aligns the bingo fake button text */
   background: -webkit-gradient(linear, left top, left bottom, from(rgb(222, 50, 42, 0.5)), to(rgb(98, 37, 40, 0.5)));
-  text-shadow: 1px 1px rgba(0,0,0,0.8);
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.8);
   text-decoration: none;
 }
 
 .btn:hover {
   color: white;
-  box-shadow: 0 0 6px rgba(10,10,10,0.25);
+  box-shadow: 0 0 6px rgba(10, 10, 10, 0.25);
 }
 
 .btn:disabled {
@@ -79,7 +82,7 @@ h3 {
 
 /*Bingo button styles*/
 
-.buttons input[type=checkbox] {
+.buttons input[type='checkbox'] {
   display: none;
 }
 
@@ -87,7 +90,7 @@ label.btn {
   margin-bottom: 0;
 }
 
-input[type=checkbox]:checked+label {
+input[type='checkbox']:checked + label {
   background: -webkit-gradient(linear, left bottom, left top, from(rgb(222, 50, 42, 0.5)), to(rgb(98, 37, 40, 0.5)));
 }
 
@@ -113,7 +116,10 @@ input[type=checkbox]:checked+label {
   padding: 0.5em 0;
   line-height: 1em;
   max-height: 3em;
-  transition: max-height 0.3s ease 1.5s, padding 0.3s ease 1.5s, margin 0.3s ease 1.5s;
+  transition:
+    max-height 0.3s ease 1.5s,
+    padding 0.3s ease 1.5s,
+    margin 0.3s ease 1.5s;
   overflow: hidden;
   font-size: 1.1em;
   font-weight: bold;
@@ -123,7 +129,10 @@ input[type=checkbox]:checked+label {
   max-height: 0em;
   padding: 0;
   margin: 0;
-  transition: max-height 0.3s ease 0s, padding 0.3s ease 0s, margin 0.3s ease 0s;
+  transition:
+    max-height 0.3s ease 0s,
+    padding 0.3s ease 0s,
+    margin 0.3s ease 0s;
 }
 
 .instructions {
@@ -132,14 +141,16 @@ input[type=checkbox]:checked+label {
 
 /* Style for RATE US Buttons */
 
-.cordova-ios .android-rating, .cordova-ios .rate-me .row.playmarket {
-   display: none;
-}
-
-.cordova-android .app-store-rating, .cordova-android .rate-me .row.apple {
+.cordova-ios .android-rating,
+.cordova-ios .rate-me .row.playmarket {
   display: none;
 }
 
-.web-platform .rate-me{
+.cordova-android .app-store-rating,
+.cordova-android .rate-me .row.apple {
+  display: none;
+}
+
+.web-platform .rate-me {
   display: none;
 }
