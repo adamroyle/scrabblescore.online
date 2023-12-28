@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { configure } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 
-import 'jest-enzyme';
+import "jest-enzyme";
 
 configure({ adapter: new Adapter() });
 
-const util = require('util');
+const util = require("util");
 
 util.inspect.defaultOptions.maxArrayLength = null;
 util.inspect.defaultOptions.depth = null;
@@ -21,8 +21,8 @@ global.MutationObserver = class {
 
 global.scrollBy = () => {};
 
-jest.mock('popper.js', () => {
-  const PopperJS = jest.requireActual('popper.js');
+jest.mock("popper.js", () => {
+  const PopperJS = jest.requireActual("popper.js");
 
   class Popper {
     constructor() {

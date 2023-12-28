@@ -1,6 +1,6 @@
 export const scoreListsMap = {
   en: {
-    language: 'English',
+    language: "English",
     scores: {
       a: 1,
       e: 1,
@@ -11,7 +11,7 @@ export const scoreListsMap = {
       n: 1,
       r: 1,
       s: 1,
-			t: 1,
+      t: 1,
       d: 2,
       g: 2,
       b: 3,
@@ -23,7 +23,7 @@ export const scoreListsMap = {
       v: 4,
       w: 4,
       y: 4,
-			k: 5,
+      k: 5,
       j: 8,
       x: 8,
       q: 10,
@@ -31,7 +31,7 @@ export const scoreListsMap = {
     },
   },
   fr: {
-    language: 'French',
+    language: "French",
     scores: {
       e: 1,
       a: 1,
@@ -43,7 +43,7 @@ export const scoreListsMap = {
       t: 1,
       u: 1,
       l: 1,
-			d: 2,
+      d: 2,
       m: 2,
       g: 2,
       b: 3,
@@ -55,14 +55,14 @@ export const scoreListsMap = {
       j: 8,
       q: 8,
       k: 10,
-			w: 10,
+      w: 10,
       x: 10,
       y: 10,
       z: 10,
     },
   },
   ru: {
-    language: 'Russian',
+    language: "Russian",
     scores: {
       о: 1,
       а: 1,
@@ -73,7 +73,7 @@ export const scoreListsMap = {
       с: 1,
       т: 1,
       в: 1,
-			д: 2,
+      д: 2,
       к: 2,
       л: 2,
       п: 2,
@@ -86,7 +86,7 @@ export const scoreListsMap = {
       ё: 3,
       ы: 4,
       й: 4,
-			з: 5,
+      з: 5,
       ж: 5,
       х: 5,
       ц: 5,

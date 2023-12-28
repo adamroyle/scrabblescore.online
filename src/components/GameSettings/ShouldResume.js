@@ -1,7 +1,6 @@
-import React from 'react';
-import './GameSettings.css';
-import HomePage from './HomePage';
-
+import React from "react";
+import "./GameSettings.css";
+import HomePage from "./HomePage";
 
 class ShouldResume extends React.Component {
   render() {
@@ -13,19 +12,31 @@ class ShouldResume extends React.Component {
           <div className="col-sm-8">
             <div className="should-resume">
               <p>
-                You have a game in progress. <br />Would you like to resume it?
+                You have a game in progress. <br />
+                Would you like to resume it?
               </p>
               <div className="buttons">
                 <div className="row">
                   <div className="col">
-                    <button className="btn faded" type="button" onClick={() => onResume(false)}>No</button>
+                    <button
+                      className="btn faded"
+                      type="button"
+                      onClick={() => onResume(false)}
+                    >
+                      No
+                    </button>
                   </div>
                   <div className="col">
-                    <button className="btn" type="button" onClick={() => onResume(true)}>Yes</button>
+                    <button
+                      className="btn"
+                      type="button"
+                      onClick={() => onResume(true)}
+                    >
+                      Yes
+                    </button>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>

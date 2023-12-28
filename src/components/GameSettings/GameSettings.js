@@ -1,10 +1,9 @@
-import React from 'react';
-import './GameSettings.css';
-import { resizeArray, isStaticBuild, setStartTime } from '../../logic/util';
-import { persistState, getPersistedState } from '../../logic/util';
-import HomePage from './HomePage';
-import { SwapIcon } from './icons';
-
+import React from "react";
+import "./GameSettings.css";
+import { resizeArray, isStaticBuild, setStartTime } from "../../logic/util";
+import { persistState, getPersistedState } from "../../logic/util";
+import HomePage from "./HomePage";
+import { SwapIcon } from "./icons";
 
 const MIN_PLAYERS = 2;
 const MAX_PLAYERS = 4;
@@ -17,7 +16,7 @@ class GameSettings extends React.Component {
     this.handleGameStart = this.handleGameStart.bind(this);
     this.state = {
       playerNames: resizeArray([], MAX_PLAYERS, ""),
-      language: 'en',
+      language: "en",
       isTagDisabled: true,
     };
   }
@@ -25,7 +24,7 @@ class GameSettings extends React.Component {
   componentDidMount() {
     let { playerNames } = getPersistedState("settings") || this.state;
     playerNames = resizeArray(playerNames, MAX_PLAYERS, "");
-    this.setState({playerNames, isTagDisabled: isStaticBuild()});
+    this.setState({ playerNames, isTagDisabled: isStaticBuild() });
   }
 
   handleChangeOfName(i, e) {
@@ -55,19 +54,25 @@ class GameSettings extends React.Component {
     const trimRightArray = (arr) => {
       return arr
         .reverse()
-        .reduce((acc, value) => value || acc.length > 0 ? [...acc, value] : acc, [])
+        .reduce(
+          (acc, value) => (value || acc.length > 0 ? [...acc, value] : acc),
+          [],
+        )
         .reverse();
-    }
+    };
 
-    playerNames = playerNames.map(s => s.trim());
+    playerNames = playerNames.map((s) => s.trim());
     playerNames = trimRightArray(playerNames);
 
-    persistState("settings", {playerNames});
+    persistState("settings", { playerNames });
 
     if (playerNames.length < MIN_PLAYERS)
       playerNames = resizeArray(playerNames, MIN_PLAYERS, "");
 
-    onGameStart(playerNames.map((name, i) => (name || `Player ${i + 1}`)), language);
+    onGameStart(
+      playerNames.map((name, i) => name || `Player ${i + 1}`),
+      language,
+    );
     setStartTime(); // Recording start time of the game
   }
 
@@ -77,7 +82,12 @@ class GameSettings extends React.Component {
       <HomePage>
         <div className="language-choice-container">
           <p className="sel-lang">Select the game language:</p>
-          <select className="custom-select" id="language-select" value={language} onChange={this.handleChangeOfLanguage}>
+          <select
+            className="custom-select"
+            id="language-select"
+            value={language}
+            onChange={this.handleChangeOfLanguage}
+          >
             <option value="en">English</option>
             <option value="ru">Russian</option>
             <option value="fr">French</option>
@@ -99,24 +109,27 @@ class GameSettings extends React.Component {
                     type="button"
                     onClick={() => this.handleSwapName(i, i + 1)}
                     disabled={i === playerNames.length - 1 || isTagDisabled}
-                    className="btn disabled:hidden translate-y-swap-button">
+                    className="btn disabled:hidden translate-y-swap-button"
+                  >
                     <SwapIcon />
                   </button>
-                </div>              
+                </div>
               </div>
             ))}
           </div>
           <div className="start-btn-container">
-            <button className="btn start" type="submit" disabled={isTagDisabled}>START</button>
+            <button
+              className="btn start"
+              type="submit"
+              disabled={isTagDisabled}
+            >
+              START
+            </button>
           </div>
         </form>
       </HomePage>
     );
   }
 }
-
-
-
-
 
 export default GameSettings;

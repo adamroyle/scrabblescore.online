@@ -74,12 +74,20 @@ class ScoreKeeper extends React.Component {
       return winnersTie
         .map((winnerIndex) =>
           winnersTie.length > 1
-            ? `${playerNames[winnerIndex]}: ${game.getTotalScore(winnerIndex, turnBeforeLeftOvers)} points`
-            : `${playerNames[winnerIndex]} won with ${game.getTotalScore(winnerIndex, turnBeforeLeftOvers)} points!`
+            ? `${playerNames[winnerIndex]}: ${game.getTotalScore(
+                winnerIndex,
+                turnBeforeLeftOvers,
+              )} points`
+            : `${playerNames[winnerIndex]} won with ${game.getTotalScore(
+                winnerIndex,
+                turnBeforeLeftOvers,
+              )} points!`,
         )
         .join(", ");
     }
-    return `${playerNames[winners[0]]} won with ${game.getTotalScore(winners[0])} points!`;
+    return `${playerNames[winners[0]]} won with ${game.getTotalScore(
+      winners[0],
+    )} points!`;
   }
 
   render() {
@@ -98,7 +106,13 @@ class ScoreKeeper extends React.Component {
 
     const toDisplayCallPlayerToAction = () => {
       if (!isMobile) {
-        return <CallPlayerToAction game={game} playerNames={playerNames} isMobile={isMobile} />;
+        return (
+          <CallPlayerToAction
+            game={game}
+            playerNames={playerNames}
+            isMobile={isMobile}
+          />
+        );
       }
     };
 
@@ -110,9 +124,17 @@ class ScoreKeeper extends React.Component {
           </div>
           <h1 className="title">Score Sheet</h1>
           {isMobile ? (
-            <ScoreGridMobile playerNames={playerNames} game={game} language={language} />
+            <ScoreGridMobile
+              playerNames={playerNames}
+              game={game}
+              language={language}
+            />
           ) : (
-            <ScoreGrid playerNames={playerNames} game={game} language={language} />
+            <ScoreGrid
+              playerNames={playerNames}
+              game={game}
+              language={language}
+            />
           )}
           {!game.areLeftOversSubmitted() ? (
             toDisplayCallPlayerToAction()
@@ -121,7 +143,11 @@ class ScoreKeeper extends React.Component {
               <h1>{this.renderWinner()}</h1>
             </div>
           )}
-          {!game.isGameOver() ? <InGameControls {...controlProps} /> : <InGameOverControls {...controlProps} />}
+          {!game.isGameOver() ? (
+            <InGameControls {...controlProps} />
+          ) : (
+            <InGameOverControls {...controlProps} />
+          )}
         </div>
       </div>
     );

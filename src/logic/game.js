@@ -1,4 +1,4 @@
-import { resizeArray, indexesOf } from './util';
+import { resizeArray, indexesOf } from "./util";
 
 class Turn {
   /* DONE Add test for passed display in the scoregrid */
@@ -13,7 +13,7 @@ class Turn {
   }
 
   static fromPlain(obj) {
-    return new Turn(obj.words, obj.bingo)
+    return new Turn(obj.words, obj.bingo);
   }
 
   isEmpty() {
@@ -25,7 +25,7 @@ class Turn {
   }
 
   isComplete(game) {
-    return this !== game.getCurrentTurn()
+    return this !== game.getCurrentTurn();
   }
 
   get score() {
@@ -56,33 +56,54 @@ export default class Game {
   }
 
   static fromPlain(obj) {
-    const turns = obj.playersTurns.map(player => player.map(turn => Turn.fromPlain(turn)));
+    const turns = obj.playersTurns.map((player) =>
+      player.map((turn) => Turn.fromPlain(turn)),
+    );
     return new Game(turns, obj.currentPlayerIndex, obj.leftOversTurnNumber);
   }
 
   addWord(word) {
     const currentTurn = this.getCurrentTurn();
     const turn = new Turn([...currentTurn.words, word], currentTurn.bingo);
-    return this._setTurn(this.currentPlayerIndex, this.getCurrentTurnNumber(), turn);
+    return this._setTurn(
+      this.currentPlayerIndex,
+      this.getCurrentTurnNumber(),
+      turn,
+    );
   }
 
   endTurn() {
     let newGame = this;
     if (this.getCurrentTurn().isEmpty()) {
-      newGame = this._setTurn(this.currentPlayerIndex, this.getCurrentTurnNumber(), Turn.empty());
+      newGame = this._setTurn(
+        this.currentPlayerIndex,
+        this.getCurrentTurnNumber(),
+        Turn.empty(),
+      );
     }
-    const newPlayerIndex = (this.currentPlayerIndex + 1) % this.playersTurns.length;
-    const players = newGame.playersTurns.map((history, playerIndex) => (playerIndex === newPlayerIndex ? [...history, Turn.empty()] : history));
+    const newPlayerIndex =
+      (this.currentPlayerIndex + 1) % this.playersTurns.length;
+    const players = newGame.playersTurns.map((history, playerIndex) =>
+      playerIndex === newPlayerIndex ? [...history, Turn.empty()] : history,
+    );
     return new Game(players, newPlayerIndex, this.leftOversTurnNumber);
   }
 
   setBingo(value) {
     const turn = new Turn(this.getCurrentTurn().words, value);
-    return this._setTurn(this.currentPlayerIndex, this.getCurrentTurnNumber(), turn);
+    return this._setTurn(
+      this.currentPlayerIndex,
+      this.getCurrentTurnNumber(),
+      turn,
+    );
   }
 
   endGame() {
-    return new Game(this.playersTurns, this.currentPlayerIndex, this.getCurrentTurnNumber());
+    return new Game(
+      this.playersTurns,
+      this.currentPlayerIndex,
+      this.getCurrentTurnNumber(),
+    );
   }
 
   isGameOver() {
@@ -90,7 +111,13 @@ export default class Game {
   }
 
   areLeftOversSubmitted() {
-    if (this.isGameOver() && this.playersTurns[this.playersTurns.length - 1][this.leftOversTurnNumber] && this.currentPlayerIndex === 0) {
+    if (
+      this.isGameOver() &&
+      this.playersTurns[this.playersTurns.length - 1][
+        this.leftOversTurnNumber
+      ] &&
+      this.currentPlayerIndex === 0
+    ) {
       return true;
     }
     return false;
@@ -121,26 +148,46 @@ export default class Game {
   distributeLeftOversToReapers(reapers, totalLeftOverScore) {
     let game = this;
     reapers.forEach((reaperIndex) => {
-      const turn = new Turn([{ value: '__reaped_leftovers__', modifiers: [], score: totalLeftOverScore}], false);
+      const turn = new Turn(
+        [
+          {
+            value: "__reaped_leftovers__",
+            modifiers: [],
+            score: totalLeftOverScore,
+          },
+        ],
+        false,
+      );
       game = game._setTurn(reaperIndex, this.leftOversTurnNumber, turn);
     });
     return game;
   }
 
   getWinners(upToMove) {
-    const totalScores = this.playersTurns.map((_, i) => this.getTotalScore(i, upToMove));
+    const totalScores = this.playersTurns.map((_, i) =>
+      this.getTotalScore(i, upToMove),
+    );
     return indexesOf(totalScores, Math.max(...totalScores));
   }
 
   _setTurn(playerIndex, turnNumber, turn) {
     const playerCopy = this.playersTurns[playerIndex].slice();
     playerCopy[turnNumber] = turn;
-    const newPlayers = this.playersTurns.map((player, i) => (i === playerIndex ? playerCopy : player));
-    return new Game(newPlayers, this.currentPlayerIndex, this.leftOversTurnNumber);
+    const newPlayers = this.playersTurns.map((player, i) =>
+      i === playerIndex ? playerCopy : player,
+    );
+    return new Game(
+      newPlayers,
+      this.currentPlayerIndex,
+      this.leftOversTurnNumber,
+    );
   }
 
   getLastPlayer() {
-    return this.playersTurns[(this.playersTurns.length + this.currentPlayerIndex - 1) % this.playersTurns.length];
+    return this.playersTurns[
+      (this.playersTurns.length + this.currentPlayerIndex - 1) %
+        this.playersTurns.length
+    ];
   }
 
   getCurrentPlayer() {
@@ -177,16 +224,15 @@ export default class Game {
     let result = [];
     let totalScore = 0;
     for (let i = 0; i < player.length; i++) {
-      totalScore += player[i].score
+      totalScore += player[i].score;
       result.push(totalScore);
     }
     return result;
   }
-  
+
   getTotalScore(playerIndex, upToMove) {
     let totals = this.getRunningTotals(playerIndex);
-    if (upToMove !== undefined)
-      return totals[upToMove];
+    if (upToMove !== undefined) return totals[upToMove];
     return totals.length === 0 ? 0 : totals[totals.length - 1];
   }
 }

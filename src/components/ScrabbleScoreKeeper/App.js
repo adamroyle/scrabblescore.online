@@ -4,7 +4,11 @@ import GameSettings from "../GameSettings/GameSettings";
 import ShouldResume from "../GameSettings/ShouldResume";
 import ScoreKeeper from "./ScoreKeeper";
 import "./App.css";
-import { logEvent, getPersistedState, clearPersistedState } from "../../logic/util";
+import {
+  logEvent,
+  getPersistedState,
+  clearPersistedState,
+} from "../../logic/util";
 
 class App extends React.Component {
   constructor(props) {
@@ -65,7 +69,11 @@ class App extends React.Component {
   }
 
   handleGameStart(playerNames, language) {
-    logEvent("start-game", { "player-names": playerNames, language: language, "num-players": playerNames.length });
+    logEvent("start-game", {
+      "player-names": playerNames,
+      language: language,
+      "num-players": playerNames.length,
+    });
     window.history.pushState({ playerNames: playerNames }, null);
     this.setState({ playerNames, language });
   }
@@ -94,14 +102,23 @@ class App extends React.Component {
     return playerNames.length === 0 ? (
       <GameSettings onGameStart={this.handleGameStart} />
     ) : (
-      <ScoreKeeper onNewGame={this.handleResetGame} playerNames={playerNames} language={language} isMobile={isMobile} />
+      <ScoreKeeper
+        onNewGame={this.handleResetGame}
+        playerNames={playerNames}
+        language={language}
+        isMobile={isMobile}
+      />
     );
   }
 
   render() {
     const { width } = this.state;
     const isMobile = width <= 815;
-    return <div className={`main mb-5 ${isMobile ? "mobile" : "desktop"}`}>{this.renderGame(isMobile)}</div>;
+    return (
+      <div className={`main mb-5 ${isMobile ? "mobile" : "desktop"}`}>
+        {this.renderGame(isMobile)}
+      </div>
+    );
   }
 }
 
