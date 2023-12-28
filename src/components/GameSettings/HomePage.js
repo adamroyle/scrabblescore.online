@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const HomePage = (props) => {
   return (
@@ -10,7 +10,7 @@ const HomePage = (props) => {
       </div>
       <div className="mb-5">{props.children}</div>
     </div>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage

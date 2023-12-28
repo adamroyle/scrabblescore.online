@@ -1,13 +1,7 @@
-import React from "react";
+import React from 'react'
 
 export const SwapIcon = () => (
-  <svg
-    width="34"
-    height="24"
-    viewBox="0 0 34 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="34" height="24" viewBox="0 0 34 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M9 4V20M9 4L15 10M9 4L3 10"
       stroke="currentColor"
@@ -23,4 +17,4 @@ export const SwapIcon = () => (
       strokeLinejoin="round"
     />
   </svg>
-);
+)

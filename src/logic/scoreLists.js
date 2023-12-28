@@ -1,6 +1,6 @@
 export const scoreListsMap = {
   en: {
-    language: "English",
+    language: 'English',
     scores: {
       a: 1,
       e: 1,
@@ -31,7 +31,7 @@ export const scoreListsMap = {
     },
   },
   fr: {
-    language: "French",
+    language: 'French',
     scores: {
       e: 1,
       a: 1,
@@ -62,7 +62,7 @@ export const scoreListsMap = {
     },
   },
   ru: {
-    language: "Russian",
+    language: 'Russian',
     scores: {
       о: 1,
       а: 1,
@@ -99,4 +99,4 @@ export const scoreListsMap = {
       ъ: 10,
     },
   },
-};
+}

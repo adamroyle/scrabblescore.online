@@ -1,10 +1,10 @@
-import React from "react";
-import "./GameSettings.css";
-import HomePage from "./HomePage";
+import React from 'react'
+import './GameSettings.css'
+import HomePage from './HomePage'
 
 class ShouldResume extends React.Component {
   render() {
-    const { onResume } = this.props;
+    const { onResume } = this.props
 
     return (
       <HomePage>
@@ -18,20 +18,12 @@ class ShouldResume extends React.Component {
               <div className="buttons">
                 <div className="row">
                   <div className="col">
-                    <button
-                      className="btn faded"
-                      type="button"
-                      onClick={() => onResume(false)}
-                    >
+                    <button className="btn faded" type="button" onClick={() => onResume(false)}>
                       No
                     </button>
                   </div>
                   <div className="col">
-                    <button
-                      className="btn"
-                      type="button"
-                      onClick={() => onResume(true)}
-                    >
+                    <button className="btn" type="button" onClick={() => onResume(true)}>
                       Yes
                     </button>
                   </div>
@@ -41,8 +33,8 @@ class ShouldResume extends React.Component {
           </div>
         </div>
       </HomePage>
-    );
+    )
   }
 }
 
-export default ShouldResume;
+export default ShouldResume

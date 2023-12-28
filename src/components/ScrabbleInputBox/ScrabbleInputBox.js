@@ -1,68 +1,53 @@
-import React from "react";
-import {
-  resizeArray,
-  scrabbleScore,
-  isLetterAllowed,
-  logEvent,
-} from "../../logic/util";
-import WithModifierPopover from "./WithModifierPopover";
-import ScrabbleTile from "../ScrabbleTile/ScrabbleTile";
-import "./ScrabbleInputBox.css";
+import React from 'react'
+import { resizeArray, scrabbleScore, isLetterAllowed, logEvent } from '../../logic/util'
+import WithModifierPopover from './WithModifierPopover'
+import ScrabbleTile from '../ScrabbleTile/ScrabbleTile'
+import './ScrabbleInputBox.css'
 
 class ScrabbleInputBox extends React.Component {
   constructor(props) {
-    super(props);
-    this.textHiddenInput = React.createRef();
-    this.focus = this.focus.bind(this);
-    this.handleHiddenInputChange = this.handleHiddenInputChange.bind(this);
-    this.handleTileClick = this.handleTileClick.bind(this);
+    super(props)
+    this.textHiddenInput = React.createRef()
+    this.focus = this.focus.bind(this)
+    this.handleHiddenInputChange = this.handleHiddenInputChange.bind(this)
+    this.handleTileClick = this.handleTileClick.bind(this)
     this.state = {
       inFocus: false,
-    };
+    }
   }
 
   handleHiddenInputChange(e) {
-    const { language, word, onChange } = this.props;
-    const input = e.target.value.substring(
-      0,
-      15,
-    ); /* maxLength does not always work on Android */
-    const result = input
-      .split("")
-      .map((letter) => (isLetterAllowed(letter, language) ? letter : ""));
-    const modifiers = resizeArray(word.modifiers, result.length, []);
-    onChange({ value: result.join(""), modifiers });
+    const { language, word, onChange } = this.props
+    const input = e.target.value.substring(0, 15) /* maxLength does not always work on Android */
+    const result = input.split('').map((letter) => (isLetterAllowed(letter, language) ? letter : ''))
+    const modifiers = resizeArray(word.modifiers, result.length, [])
+    onChange({ value: result.join(''), modifiers })
   }
 
   handleModifierChange(letterIndex, modifier) {
-    const { word, onChange } = this.props;
-    const modifiers = word.modifiers.slice();
-    modifiers[letterIndex] = modifier;
-    onChange({ value: word.value, modifiers });
+    const { word, onChange } = this.props
+    const modifiers = word.modifiers.slice()
+    modifiers[letterIndex] = modifier
+    onChange({ value: word.value, modifiers })
 
-    logEvent("add-modifier", { letterIndex, modifier: modifier.join() });
+    logEvent('add-modifier', { letterIndex, modifier: modifier.join() })
   }
 
   handleTileClick() {
-    this.focus();
+    this.focus()
   }
 
   focus() {
-    this.textHiddenInput.current.focus();
+    this.textHiddenInput.current.focus()
   }
 
   render() {
-    const { language, word } = this.props;
-    const { inFocus } = this.state;
+    const { language, word } = this.props
+    const { inFocus } = this.state
 
     function handleArrowClick(e) {
-      if (
-        e.keyCode === 37 ||
-        e.keyCode === 38 ||
-        e.keyCode === 39 ||
-        e.keyCode === 40
-      ) {
-        e.preventDefault();
+      if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
+        e.preventDefault()
       }
     }
 
@@ -71,8 +56,7 @@ class ScrabbleInputBox extends React.Component {
         role="textbox"
         onClick={this.focus}
         onKeyDown={this.focus}
-        className={`scrabble-input-box${word.value.length > 8 ? " large" : ""}`}
-      >
+        className={`scrabble-input-box${word.value.length > 8 ? ' large' : ''}`}>
         <input
           ref={this.textHiddenInput}
           onChange={this.handleHiddenInputChange}
@@ -88,14 +72,11 @@ class ScrabbleInputBox extends React.Component {
           spellCheck="false"
           autoCorrect="off"
         />
-        <div className={inFocus ? "scrabble-tiles blinker" : "scrabble-tiles"}>
-          {word.value.split("").map((letter, letterIndex) => (
+        <div className={inFocus ? 'scrabble-tiles blinker' : 'scrabble-tiles'}>
+          {word.value.split('').map((letter, letterIndex) => (
             <WithModifierPopover
-              onChange={(modifier) =>
-                this.handleModifierChange(letterIndex, modifier)
-              }
-              key={letterIndex}
-            >
+              onChange={(modifier) => this.handleModifierChange(letterIndex, modifier)}
+              key={letterIndex}>
               <ScrabbleTile
                 onClick={this.handleTileClick}
                 letter={letter}
@@ -106,8 +87,8 @@ class ScrabbleInputBox extends React.Component {
           ))}
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default ScrabbleInputBox;
+export default ScrabbleInputBox

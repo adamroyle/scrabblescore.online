@@ -1,34 +1,30 @@
-import React from "react";
-import ScoreGridCell from "./ScoreGridCell";
-import CallPlayerToAction from "../ScrabbleScoreKeeper/CallPlayerToAction";
-import "./ScoreGrid.css";
+import React from 'react'
+import ScoreGridCell from './ScoreGridCell'
+import CallPlayerToAction from '../ScrabbleScoreKeeper/CallPlayerToAction'
+import './ScoreGrid.css'
 
 class ScoreGridMobile extends React.Component {
   moveRowText(i) {
-    const { game } = this.props;
-    return game.isMoveInGameOver(i) ? "Leftovers Accounting" : `Move ${i + 1}`;
+    const { game } = this.props
+    return game.isMoveInGameOver(i) ? 'Leftovers Accounting' : `Move ${i + 1}`
   }
 
   render() {
-    const { playerNames, game, language } = this.props;
-    const totalScores = [...Array(playerNames.length)].map((_, j) =>
-      game.getRunningTotals(j),
-    );
+    const { playerNames, game, language } = this.props
+    const totalScores = [...Array(playerNames.length)].map((_, j) => game.getRunningTotals(j))
     const toDisplayTotals = (turn) => {
       if (!game.areLeftOversSubmitted()) {
-        return turn.isComplete(game);
+        return turn.isComplete(game)
       }
-      return true;
-    };
-    const numRows = game.isGameOver()
-      ? game.leftOversTurnNumber + 1
-      : game.getCurrentTurnNumber() + 1;
+      return true
+    }
+    const numRows = game.isGameOver() ? game.leftOversTurnNumber + 1 : game.getCurrentTurnNumber() + 1
 
     const isCurrentPlayersTurn = (player, turnIndex) =>
       player === game.getCurrentPlayer() &&
       player[turnIndex].isEmpty() &&
       !player[turnIndex].isPassed(game) &&
-      !player[turnIndex].bingo;
+      !player[turnIndex].bingo
     return (
       <table className="table table-bordered score-grid-table">
         <thead>
@@ -49,7 +45,7 @@ class ScoreGridMobile extends React.Component {
               <tr key={`moverow${i}`} className="move-row">
                 <td colSpan="2">{this.moveRowText(i)}</td>
               </tr>
-            );
+            )
             const playerRows = game.playersTurns.map((player, j) =>
               player[i] ? (
                 <tr key={`move${i}_player${j}`} className="player-move-row">
@@ -65,32 +61,23 @@ class ScoreGridMobile extends React.Component {
                         <tbody>
                           <tr>
                             <td>
-                              <CallPlayerToAction
-                                game={game}
-                                playerNames={playerNames}
-                                isMobile
-                              />
+                              <CallPlayerToAction game={game} playerNames={playerNames} isMobile />
                             </td>
                           </tr>
                         </tbody>
                       </table>
                     ) : (
-                      <ScoreGridCell
-                        turn={player[i]}
-                        move={i}
-                        language={language}
-                        game={game}
-                      />
+                      <ScoreGridCell turn={player[i]} move={i} language={language} game={game} />
                     )}
                   </td>
                 </tr>
-              ) : null,
-            );
-            return [moveRow, playerRows];
+              ) : null
+            )
+            return [moveRow, playerRows]
           })}
         </tbody>
       </table>
-    );
+    )
   }
 }
-export default ScoreGridMobile;
+export default ScoreGridMobile

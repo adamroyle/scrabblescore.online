@@ -29,6 +29,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@bigfishtv/prettier-config": "^1.1.0",
     "prettier": "^3.1.1"
   }
 }

@@ -1,14 +1,14 @@
-import React from "react";
-import { scrabbleScore } from "../../logic/util";
-import ScrabbleTile from "../ScrabbleTile/ScrabbleTile";
+import React from 'react'
+import { scrabbleScore } from '../../logic/util'
+import ScrabbleTile from '../ScrabbleTile/ScrabbleTile'
 
 class WordInTiles extends React.Component {
   render() {
-    const { word, language } = this.props;
-    if (word.value === "__reaped_leftovers__") {
-      return <span className="reaper">NO LEFTOVERS</span>;
+    const { word, language } = this.props
+    if (word.value === '__reaped_leftovers__') {
+      return <span className="reaper">NO LEFTOVERS</span>
     }
-    const letterTiles = word.value.split("").map((letter, i) => {
+    const letterTiles = word.value.split('').map((letter, i) => {
       const tile = (
         <ScrabbleTile
           key={i}
@@ -16,11 +16,11 @@ class WordInTiles extends React.Component {
           modifier={word.modifiers[i]}
           score={scrabbleScore(letter, [[]], language)}
         />
-      );
-      return tile;
-    });
-    return <div>{letterTiles}</div>;
+      )
+      return tile
+    })
+    return <div>{letterTiles}</div>
   }
 }
 
-export default WordInTiles;
+export default WordInTiles
