@@ -10,7 +10,7 @@ class ScoreGridMobile extends React.Component {
   }
 
   render() {
-    const { playerNames, game, language } = this.props
+    const { playerNames, game, onSetGame, language } = this.props
     const totalScores = [...Array(playerNames.length)].map((_, j) => game.getRunningTotals(j))
     const toDisplayTotals = (turn) => {
       if (!game.areLeftOversSubmitted()) {
@@ -67,7 +67,7 @@ class ScoreGridMobile extends React.Component {
                         </tbody>
                       </table>
                     ) : (
-                      <ScoreGridCell turn={player[i]} move={i} language={language} game={game} />
+                      <ScoreGridCell turn={player[i]} move={i} language={language} game={game} onSetGame={onSetGame} />
                     )}
                   </td>
                 </tr>

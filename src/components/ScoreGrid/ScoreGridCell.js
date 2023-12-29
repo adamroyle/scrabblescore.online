@@ -12,11 +12,11 @@ class ScoreGridCell extends React.Component {
   }
 
   renderNormal() {
-    const { turn, language } = this.props
+    const { turn, language, game, onSetGame } = this.props
     const rows = turn.words.map((word, i) => (
       <tr key={`row-word-${i}`} className="word-row">
         <td className="word-cell">
-          <WordInTiles word={word} language={language} />
+          <WordInTiles word={word} language={language} game={game} onSetGame={onSetGame} />
         </td>
         {i === 0 ? (
           <td rowSpan={`${turn.bingo ? turn.words.length + 1 : turn.words.length}`} className="score-cell">

@@ -1,4 +1,4 @@
-import { resizeArray, indexesOf } from './util'
+import { resizeArray, indexesOf, toggleModifiers, placedScore } from './util'
 
 class Turn {
   /* DONE Add test for passed display in the scoregrid */
@@ -140,6 +140,65 @@ export default class Game {
       game = game._setTurn(reaperIndex, this.leftOversTurnNumber, turn)
     })
     return game
+  }
+
+  togglePlaced(word, letterIndex) {
+    let game = this
+    for (let [playerIndex, playerTurn] of game.playersTurns.entries()) {
+      for (let [turnNumber, turn] of playerTurn.entries()) {
+        const wordIndex = turn.words.indexOf(word)
+        if (wordIndex >= 0) {
+          const newTurn = new Turn(
+            turn.words.map((word, index) => {
+              if (index === wordIndex) {
+                const modifiers = word.modifiers.map((mod, i) =>
+                  letterIndex === i ? toggleModifiers(mod, 'placed') : mod
+                )
+                return { ...word, modifiers }
+              }
+              return word
+            })
+          )
+          return this._setTurn(playerIndex, turnNumber, newTurn)
+        }
+      }
+    }
+    return game
+  }
+
+  updateModifiers(word, modifiers) {
+    let game = this
+    for (let [playerIndex, playerTurn] of game.playersTurns.entries()) {
+      for (let [turnNumber, turn] of playerTurn.entries()) {
+        const wordIndex = turn.words.indexOf(word)
+        if (wordIndex >= 0) {
+          const newTurn = new Turn(
+            turn.words.map((word, index) => {
+              return index === wordIndex ? { ...word, modifiers } : word
+            })
+          )
+          return this._setTurn(playerIndex, turnNumber, newTurn)
+        }
+      }
+    }
+    return game
+  }
+
+  getLuckFactors(language) {
+    return this.playersTurns.map((turns, i) => {
+      let _placedCount = 0
+      let _placedScore = 0
+      for (let turn of turns) {
+        for (let word of turn.words) {
+          _placedScore += placedScore(word.value, word.modifiers, language)
+          _placedCount += word.modifiers.filter((mod) => mod.includes('placed')).length
+        }
+      }
+      return {
+        placed: _placedCount,
+        score: _placedScore,
+      }
+    })
   }
 
   getWinners(upToMove) {

@@ -85,6 +85,10 @@
   color: rgba(0, 0, 0, 0.4);
 }
 
+.scrabble-letter.placed {
+  box-shadow: inset 1px 1px 2px 1px #650404 !important;
+}
+
 /*MOBILE INPUT BOX tile css*/
 
 .mobile .scrabble-letter {

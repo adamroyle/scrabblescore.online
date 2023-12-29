@@ -110,7 +110,7 @@ class ScoreKeeper extends React.Component {
           </div>
           <h1 className="title">Score Sheet</h1>
           {isMobile ? (
-            <ScoreGridMobile playerNames={playerNames} game={game} language={language} />
+            <ScoreGridMobile playerNames={playerNames} game={game} language={language} onSetGame={this.handleSetGame} />
           ) : (
             <ScoreGrid playerNames={playerNames} game={game} language={language} />
           )}
@@ -122,7 +122,38 @@ class ScoreKeeper extends React.Component {
             </div>
           )}
           {!game.isGameOver() ? <InGameControls {...controlProps} /> : <InGameOverControls {...controlProps} />}
+          {this.renderLuckOrSkill()}
         </div>
+      </div>
+    )
+  }
+
+  renderLuckOrSkill() {
+    const game = this.state.game
+    const turnBeforeLeftOvers = game.leftOversTurnNumber
+      ? game.leftOversTurnNumber - 1
+      : game.playersTurns[0].length - 1
+    const luckFactors = game.getLuckFactors(this.props.language)
+    return (
+      <div style={{ paddingTop: 16 }}>
+        <table className="table table-bordered">
+          <tbody className="tbody-rows">
+            <tr className="move-row">
+              <td></td>
+              <td>Tile Count</td>
+              <td>Multiple</td>
+            </tr>
+            {luckFactors.map((vals, i) => {
+              return (
+                <tr key={i} className="move-row">
+                  <td>{this.props.playerNames[i]}</td>
+                  <td>{vals.placed}</td>
+                  <td>{Math.round((game.getTotalScore(i, turnBeforeLeftOvers) / vals.score) * 100) / 100}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
       </div>
     )
   }

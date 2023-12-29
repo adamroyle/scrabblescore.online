@@ -33,10 +33,10 @@ function __toggleSingleModifier(oldModifiers, modifier) {
 }
 
 export function toggleModifiers(oldModifiers, modifier) {
-  let modifiersA = oldModifiers.filter((mod) => mod === 'blank')
-  let modifiersB = oldModifiers.filter((mod) => mod !== 'blank')
+  let modifiersA = oldModifiers.filter((mod) => mod === 'blank' || mod === 'placed')
+  let modifiersB = oldModifiers.filter((mod) => mod !== 'blank' && mod !== 'placed')
 
-  if (modifier === 'blank') modifiersA = __toggleSingleModifier(modifiersA, modifier)
+  if (modifier === 'blank' || modifier === 'placed') modifiersA = __toggleSingleModifier(modifiersA, modifier)
   else modifiersB = __toggleSingleModifier(modifiersB, modifier)
 
   return [...modifiersA, ...modifiersB]
@@ -81,6 +81,19 @@ export function scrabbleScore(word, modifiers, language) {
       }
     }
   })
+  return result
+}
+
+export function placedScore(word, modifiers, language) {
+  let result = 0
+
+  word.split('').forEach((letter, i) => {
+    let score = scoreListsMap[language].scores[letter.toLowerCase()]
+    if (modifiers[i].includes('placed')) {
+      result += score
+    }
+  })
+
   return result
 }
 
