@@ -27,10 +27,10 @@ class ScoreKeeper extends React.Component {
         }
   }
 
-  handleSetGame(currentGame) {
+  handleSetGame(currentGame, addToUndoStack = true) {
     const { game, games } = this.state
     const { playerNames } = this.props
-    const newState = { game: currentGame, games: [...games.slice(), game] }
+    const newState = { game: currentGame, games: addToUndoStack ? [...games.slice(), game] : games }
     this.setState(newState)
     persistState('gameState', { playerNames: playerNames, ...newState })
   }
@@ -130,9 +130,6 @@ class ScoreKeeper extends React.Component {
 
   renderLuckOrSkill() {
     const game = this.state.game
-    const turnBeforeLeftOvers = game.leftOversTurnNumber
-      ? game.leftOversTurnNumber - 1
-      : game.playersTurns[0].length - 1
     const luckFactors = game.getLuckFactors(this.props.language)
     return (
       <div style={{ paddingTop: 16 }}>
@@ -141,14 +138,24 @@ class ScoreKeeper extends React.Component {
             <tr className="move-row">
               <td></td>
               <td>Tile Count</td>
+              <td>Value</td>
               <td>Multiple</td>
             </tr>
             {luckFactors.map((vals, i) => {
+              const turnBeforeLeftOvers = game.leftOversTurnNumber
+                ? game.leftOversTurnNumber - 1
+                : game.playersTurns[i].length - 1
+              console.log(game.getTotalScore(i, turnBeforeLeftOvers), vals.score)
               return (
                 <tr key={i} className="move-row">
                   <td>{this.props.playerNames[i]}</td>
                   <td>{vals.placed}</td>
-                  <td>{Math.round((game.getTotalScore(i, turnBeforeLeftOvers) / vals.score) * 100) / 100}</td>
+                  <td>{vals.score}</td>
+                  <td>
+                    {vals.score
+                      ? Math.round((game.getTotalScore(i, turnBeforeLeftOvers) / vals.score) * 100) / 100
+                      : '-'}
+                  </td>
                 </tr>
               )
             })}

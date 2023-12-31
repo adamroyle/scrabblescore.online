@@ -190,6 +190,7 @@ export default class Game {
       let _placedScore = 0
       for (let turn of turns) {
         for (let word of turn.words) {
+          if (word.value === '__reaped_leftovers__') continue
           _placedScore += placedScore(word.value, word.modifiers, language)
           _placedCount += word.modifiers.filter((mod) => mod.includes('placed')).length
         }

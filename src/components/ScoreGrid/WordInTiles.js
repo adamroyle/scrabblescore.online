@@ -11,7 +11,7 @@ class WordInTiles extends React.Component {
 
   handleClickTile = (letterIndex) => {
     const { game, word, language, onSetGame } = this.props
-    onSetGame(game.togglePlaced(word, letterIndex, language))
+    onSetGame(game.togglePlaced(word, letterIndex, language), false)
   }
 
   setTileRef = (el, letterIndex) => {
@@ -58,7 +58,7 @@ class WordInTiles extends React.Component {
       return mod
     })
     const { game, word, language, onSetGame } = this.props
-    onSetGame(game.updateModifiers(word, modifiers, language))
+    onSetGame(game.updateModifiers(word, modifiers, language), false)
   }
 
   handleTouchEnd = () => {
