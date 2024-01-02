@@ -157,7 +157,8 @@ export default class Game {
                 return { ...word, modifiers }
               }
               return word
-            })
+            }),
+            turn.bingo
           )
           return this._setTurn(playerIndex, turnNumber, newTurn)
         }
@@ -175,7 +176,8 @@ export default class Game {
           const newTurn = new Turn(
             turn.words.map((word, index) => {
               return index === wordIndex ? { ...word, modifiers } : word
-            })
+            }),
+            turn.bingo
           )
           return this._setTurn(playerIndex, turnNumber, newTurn)
         }
